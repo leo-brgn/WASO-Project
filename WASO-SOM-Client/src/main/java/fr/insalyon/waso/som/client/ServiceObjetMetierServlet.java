@@ -1,11 +1,14 @@
 package fr.insalyon.waso.som.client;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import fr.insalyon.waso.util.DBConnection;
 import fr.insalyon.waso.util.JsonServletHelper;
 import fr.insalyon.waso.util.exception.DBException;
 import fr.insalyon.waso.util.exception.ServiceException;
 import java.io.IOException;
+import java.util.Arrays;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -85,7 +88,17 @@ public class ServiceObjetMetierServlet extends HttpServlet {
 
             } else if ("rechercherClientParPersonne".equals(som)) {
 
-                // service.rechercherClientParPersonne(personneIds, ville);
+                String personneIdsParam = request.getParameter("personne-ids");
+                if (personneIdsParam == null) {
+                    throw new ServiceException("Paramètres incomplets");
+                }
+                JsonArray array = new JsonParser().parse(personneIdsParam).getAsJsonArray();
+                String ville = request.getParameter("ville");
+                int[] personneIds = new int[array.size()];
+                for (int i = 0; i < array.size(); i++) {
+                    personneIds[i] = array.get(i).getAsInt();
+                }
+                service.rechercherClientParPersonne(personneIds, ville);
 
             } else {
 

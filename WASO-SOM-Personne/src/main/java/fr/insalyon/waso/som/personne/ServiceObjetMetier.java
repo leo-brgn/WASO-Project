@@ -83,8 +83,9 @@ public class ServiceObjetMetier {
 
     public void rechercherPersonneParNom(String nomPersonne) throws ServiceException {
         try {
+            nomPersonne = nomPersonne.toUpperCase();
             List<Object[]> listePersonne = this.dBConnection.launchQuery(
-                    "SELECT PersonneID, Nom, Prenom, Mail FROM PERSONNE WHERE Nom LIKE '%" + nomPersonne + "%'");
+                    "SELECT PersonneID, Nom, Prenom, Mail FROM PERSONNE WHERE UPPER(Nom) LIKE '%' || ? || '%' ", nomPersonne);
 
             JsonArray jsonListe = new JsonArray();
 
