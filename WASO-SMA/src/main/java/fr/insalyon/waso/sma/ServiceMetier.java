@@ -201,8 +201,8 @@ public class ServiceMetier {
             JsonObject personnesContainer;
             try {
                 personnesContainer = this.jsonHttpClient.post(
-                        this.somClientUrl,
-                        new JsonHttpClient.Parameter("SOM", "rechercherClientParDenomination"),
+                        this.somPersonneUrl,
+                        new JsonHttpClient.Parameter("SOM", "rechercherClientParNomPersonne"),
                         new JsonHttpClient.Parameter("nomPersonne", nomPersonne)
                 );
             }

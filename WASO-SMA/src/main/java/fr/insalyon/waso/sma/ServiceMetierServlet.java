@@ -84,6 +84,9 @@ public class ServiceMetierServlet extends HttpServlet {
 
                 String nomPersonne = request.getParameter("nomPersonne");
                 String ville = request.getParameter("ville");
+                if (nomPersonne == null) {
+                    throw new ServiceException("Paramètres incomplets");
+                }
                 service.rechercherClientParNomPersonne(nomPersonne, ville);
 
             } else {
