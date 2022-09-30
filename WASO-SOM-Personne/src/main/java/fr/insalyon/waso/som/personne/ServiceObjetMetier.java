@@ -6,10 +6,10 @@ import fr.insalyon.waso.util.DBConnection;
 import fr.insalyon.waso.util.JsonServletHelper;
 import fr.insalyon.waso.util.exception.DBException;
 import fr.insalyon.waso.util.exception.ServiceException;
+
 import java.util.List;
 
 /**
- *
  * @author WASO Team
  */
 public class ServiceObjetMetier {
@@ -21,7 +21,7 @@ public class ServiceObjetMetier {
         this.dBConnection = dBConnection;
         this.container = container;
     }
-    
+
     public void release() {
         this.dBConnection.close();
     }

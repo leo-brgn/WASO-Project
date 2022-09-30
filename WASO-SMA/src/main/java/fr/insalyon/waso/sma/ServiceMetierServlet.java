@@ -3,14 +3,14 @@ package fr.insalyon.waso.sma;
 import com.google.gson.JsonObject;
 import fr.insalyon.waso.util.JsonServletHelper;
 import fr.insalyon.waso.util.exception.ServiceException;
-import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
- *
  * @author WASO Team
  */
 //@WebServlet(name = "ServiceMetierServlet", urlPatterns = {"/ServiceMetier"})
@@ -20,10 +20,10 @@ public class ServiceMetierServlet extends HttpServlet {
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
@@ -38,7 +38,7 @@ public class ServiceMetierServlet extends HttpServlet {
             if (pathInfo != null) {
                 sma = pathInfo.substring(1);
             }
-            
+
             String somParameter = request.getParameter("SMA");
             if (somParameter != null) {
                 sma = somParameter;
@@ -53,7 +53,7 @@ public class ServiceMetierServlet extends HttpServlet {
                     this.getInitParameter("URL-SOM-Structure"),
                     this.getInitParameter("URL-SOM-Produit"),
                     this.getInitParameter("URL-SOM-Contrat"),
-                    container );
+                    container);
 
             boolean serviceCalled = true;
 
@@ -68,15 +68,20 @@ public class ServiceMetierServlet extends HttpServlet {
                     throw new ServiceException("Paramètres incomplets");
                 }
                 Integer numero = Integer.parseInt(numeroParametre);
-                
+
                 // service.rechercherClientParNumero(numero);
 
             } else if ("rechercherClientParDenomination".equals(sma)) {
-                
-                // service.rechercherClientParDenomination(denomination,ville);
+
+                String denomination = request.getParameter("denomination");
+                String ville = request.getParameter("ville");
+                if (denomination == null) {
+                    throw new ServiceException("Paramètres incomplets");
+                }
+                service.rechercherClientParDenomination(denomination, ville);
 
             } else if ("rechercherClientParNomPersonne".equals(sma)) {
-                
+
                 // service.rechercherClientParNomPersonne(nomPersonne,ville);
 
             } else {
@@ -85,7 +90,7 @@ public class ServiceMetierServlet extends HttpServlet {
             }
 
             service.release();
-            
+
             if (serviceCalled) {
 
                 JsonServletHelper.printJsonOutput(response, container);
