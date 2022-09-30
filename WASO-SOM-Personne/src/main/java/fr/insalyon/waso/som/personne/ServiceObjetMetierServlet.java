@@ -5,14 +5,15 @@ import fr.insalyon.waso.util.DBConnection;
 import fr.insalyon.waso.util.JsonServletHelper;
 import fr.insalyon.waso.util.exception.DBException;
 import fr.insalyon.waso.util.exception.ServiceException;
-import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Arrays;
 
 /**
- *
  * @author WASO Team
  */
 //@WebServlet(name = "ServiceObjetMetierServlet", urlPatterns = {"/ServiceObjetMetier"})
@@ -22,10 +23,10 @@ public class ServiceObjetMetierServlet extends HttpServlet {
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
@@ -61,32 +62,31 @@ public class ServiceObjetMetierServlet extends HttpServlet {
             boolean serviceCalled = true;
 
             if ("getListePersonne".equals(som)) {
-
                 service.getListePersonne();
-
             } else if ("getPersonneParId".equals(som)) {
-
                 String idPersonneParametre = request.getParameter("id-personne");
                 if (idPersonneParametre == null) {
                     throw new ServiceException("Paramètres incomplets");
                 }
                 Integer idPersonne = Integer.parseInt(idPersonneParametre);
-
                 // service.getPersonneParId(idPersonne);
-
             } else if ("rechercherPersonneParNom".equals(som)) {
-
                 // service.rechercherPersonneParNom(nomPersonne);
-
+            } else if ("getPersonnesParIds".equals(som)) {
+                String idsPersonnesParametre = request.getParameter("ids-personnes");
+                if (idsPersonnesParametre == null) {
+                    throw new ServiceException("Paramètres incomplets");
+                }
+                int[] idsPersonnes = Arrays.stream(idsPersonnesParametre.split(","))
+                        .mapToInt(Integer::parseInt).toArray();
+                service.getPersonnesParIds(idsPersonnes);
+                // service.getPersonneParId(idPersonne);
             } else {
-
                 serviceCalled = false;
             }
 
             if (serviceCalled) {
-
                 JsonServletHelper.printJsonOutput(response, container);
-
             } else {
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Service SOM '" + som + "' not found");
             }
