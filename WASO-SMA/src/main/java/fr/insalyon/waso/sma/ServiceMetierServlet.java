@@ -82,7 +82,9 @@ public class ServiceMetierServlet extends HttpServlet {
 
             } else if ("rechercherClientParNomPersonne".equals(sma)) {
 
-                // service.rechercherClientParNomPersonne(nomPersonne,ville);
+                String nomPersonne = request.getParameter("nomPersonne");
+                String ville = request.getParameter("ville");
+                service.rechercherClientParNomPersonne(nomPersonne, ville);
 
             } else {
 
