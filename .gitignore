@@ -1,0 +1,7 @@
+# Project exclude paths
+/WASO-common/target/
+/WASO-IHM-Web/target/
+/WASO-microCAS/target/
+/WASO-SMA/target/
+/WASO-SOM-Client/target/
+/WASO-SOM-Personne/target/

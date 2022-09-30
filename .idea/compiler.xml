@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="WASO-common" />
+        <module name="WASO-SOM-Personne" />
+        <module name="WASO-microCAS" />
+        <module name="WASO-SOM-Client" />
+        <module name="WASO-SMA" />
+        <module name="WASO-IHM-Web" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="WASO-IHM-Web" options="-endorseddirs $PROJECT_DIR$/WASO-IHM-Web/target/endorsed" />
+      <module name="WASO-SMA" options="-endorseddirs $PROJECT_DIR$/WASO-SMA/target/endorsed" />
+      <module name="WASO-SOM-Client" options="-endorseddirs $PROJECT_DIR$/WASO-SOM-Client/target/endorsed" />
+      <module name="WASO-SOM-Personne" options="-endorseddirs $PROJECT_DIR$/WASO-SOM-Personne/target/endorsed" />
+      <module name="WASO-microCAS" options="-endorseddirs $PROJECT_DIR$/WASO-microCAS/target/endorsed" />
+    </option>
+  </component>
+</project>
