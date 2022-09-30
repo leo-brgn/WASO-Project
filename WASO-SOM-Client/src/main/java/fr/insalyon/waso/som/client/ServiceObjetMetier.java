@@ -6,11 +6,10 @@ import fr.insalyon.waso.util.DBConnection;
 import fr.insalyon.waso.util.JsonServletHelper;
 import fr.insalyon.waso.util.exception.DBException;
 import fr.insalyon.waso.util.exception.ServiceException;
+import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -69,6 +68,7 @@ public class ServiceObjetMetier {
             JsonArray jsonListe = new JsonArray();
             List<Object[]> listeClients;
             denomination = denomination.toUpperCase();
+            denomination = StringUtils.stripAccents(denomination);
 
             if (ville == null) {
                 listeClients = this.dBConnection.launchQuery(
@@ -142,6 +142,7 @@ public class ServiceObjetMetier {
                                 + " ORDER BY ClientID");
             } else {
                 ville = ville.toUpperCase();
+                ville = StringUtils.stripAccents(ville);
                 listeClients = this.dBConnection.launchQuery(
                         "SELECT ClientID, TypeClient, Denomination, Adresse, Ville"
                                 + " FROM CLIENT c WHERE c.ClientID IN " + listClientsStr

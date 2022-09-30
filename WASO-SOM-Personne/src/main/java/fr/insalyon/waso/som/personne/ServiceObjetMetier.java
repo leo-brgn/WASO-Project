@@ -6,6 +6,7 @@ import fr.insalyon.waso.util.DBConnection;
 import fr.insalyon.waso.util.JsonServletHelper;
 import fr.insalyon.waso.util.exception.DBException;
 import fr.insalyon.waso.util.exception.ServiceException;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -84,6 +85,7 @@ public class ServiceObjetMetier {
     public void rechercherPersonneParNom(String nomPersonne) throws ServiceException {
         try {
             nomPersonne = nomPersonne.toUpperCase();
+            nomPersonne = StringUtils.stripAccents(nomPersonne);
             List<Object[]> listePersonne = this.dBConnection.launchQuery(
                     "SELECT PersonneID, Nom, Prenom, Mail FROM PERSONNE WHERE UPPER(Nom) LIKE '%' || ? || '%' ", nomPersonne);
 
