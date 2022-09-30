@@ -139,8 +139,30 @@ public class AjaxAction {
     }
 
     void rechercherClientParDenomination(String denomination, String ville) throws ServiceException {
-        
-        // ...
+        try {
+            JsonObject smaResultContainer = null;
+            try {
+                smaResultContainer = this.jsonHttpClient.post(
+                        this.smaUrl,
+                        new JsonHttpClient.Parameter("SMA", "rechercherClientParDenomination"),
+                        new JsonHttpClient.Parameter("denomination", denomination),
+                        new JsonHttpClient.Parameter("ville", ville)
+                );
+            }
+            catch (ServiceIOException ex) {
+                throw JsonServletHelper.ServiceMetierCallException(this.smaUrl, "rechercherClientParDenomination", ex);
+            }
+
+            if (smaResultContainer.has("clients")) {
+
+                JsonArray jsonListe = transformListeClient(smaResultContainer.getAsJsonArray("clients"));
+
+                this.container.add("clients", jsonListe);
+            }
+
+        } catch (IOException ex) {
+            throw JsonServletHelper.ActionExecutionException("rechercherClientParNumero", ex);
+        }
     }
 
     void rechercherClientParNomPersonne(String nomPersonne, String ville) throws ServiceException {
