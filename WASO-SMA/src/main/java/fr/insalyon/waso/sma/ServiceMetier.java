@@ -127,13 +127,13 @@ public class ServiceMetier {
             try {
                 clientsContainer = this.jsonHttpClient.post(
                         this.somClientUrl,
-                        new JsonHttpClient.Parameter("SOM", "rechercherClientPar"),
+                        new JsonHttpClient.Parameter("SOM", "rechercherClientParDenomination"),
                         new JsonHttpClient.Parameter("denomination", denomination),
                         new JsonHttpClient.Parameter("ville", ville)
                 );
             }
             catch (ServiceIOException ex) {
-                throw JsonServletHelper.ServiceObjectMetierCallException(this.somClientUrl, "Client", "rechercherClientsParDenomination", ex);
+                throw JsonServletHelper.ServiceObjectMetierCallException(this.somClientUrl, "Client", "rechercherClientParDenomination", ex);
             }
 
             JsonArray jsonOutputClientListe = clientsContainer.getAsJsonArray("clients");
